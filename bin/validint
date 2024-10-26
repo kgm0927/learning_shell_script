@@ -1,0 +1,60 @@
+#!/bin/bash
+# validint--음수인 정수를 허용하면서 정수 입력을 검증
+
+
+validint(){
+
+    # 첫 번째 필드의 유효성을 검사하고 최솟값 $ 2
+    # 그리고 / 또는 최댓값 $3이 제공되면 해당 값을 테스트한다.
+    # 값이 범위 내가 아니거나 숫자만으로 구성되지 않은 경우에는 실패한다.
+
+number="$1";  min="$2"; max="$3"
+
+if [ -z $number ] ; then # 1
+    echo "You didn't enter anything. Please enter a number" >&2
+    return 1
+fi 
+
+
+if [ "${number%${number#?}}" = "-" ]; then # 2
+     testvalue="${number#?}" # Grab all but the first character to test.
+else
+    testvalue="$number"
+fi
+
+# 테스트용으로 숫자가 없는 버전을 만든다.
+nodigits="$(echo $testvalue | sed 's/[[:digit:]]//g')" # 3
+
+
+# nondigit 문자를 체크한다.
+if [ ! -z $nodigits ] ; then 
+    echo "Invalid number format! Only digits, no commas, spaces etc." >&2
+    return 1
+fi
+
+if [ ! -z $min ]; then
+    # 입력이 최솟값보다 작은가?
+    if [ "$number" -lt "$min" ]; then
+        echo "Your value is too small: smallest acceptable value is $min." >&2
+        return 1
+    fi
+fi
+
+if [ ! -z $max ]; then
+# 입력이 최댓값보다 더 큰가?
+    if [ "$number" -gt "$max" ]; then
+        echo "Your value is too big: largest acceptable value is $max." >&2
+        return 1 
+    fi
+fi
+
+
+
+return 0
+}
+
+
+# 입력 유효성 검사
+# if validint "$1" "$2" "$3" ; then
+#    echo "Input is a valid integer within your constraints."
+# fi

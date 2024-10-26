@@ -43,7 +43,7 @@ TD="," # 매 세 자리를 구분하는 천 단위 구분 기호
 # 메인 스크립트 시작
 # =====================
 
-while getopt "d:t:" opt; do # 7
+while getopts "d:t:" opt; do # 7
     case $opt in
     d ) DD="$OPTARG" ;;
     t ) TD="$OPTARG" ;;
@@ -61,6 +61,6 @@ if [ $# -eq 0 ]; then
     exit 0
 fi
 
-nicenumber $1 # 8 # 두 번째 인자는 nicenumber를 'echo'로 출력한다.
+nicenumber $1 1 # 8 # 두 번째 인자는 nicenumber를 'echo'로 출력한다.
 
 exit 0
