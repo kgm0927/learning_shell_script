@@ -3,7 +3,7 @@
 
 # chapter1- 7
 
-normdate="/home/kali/Documents/GitHub/learning_shell_script/bin/normdate.sh"
+normdate="/home/kali/Documents/GitHub/learning_shell_script/bin/normdate"
 
 exceedDayInMonth(){
     # 해당 달의 월 이름과 잘짜가 주어지면,
@@ -53,44 +53,44 @@ isLeapYear(){
 # 메인 스크립트 시작
 # ================
 
-if [ $# -ne 3 ]; then
-    echo "Usage: $0 month day year" >&2
-    echo "Typical input formats are August 3 1962 and 8 3 1962" >&2
-    exit 1
-fi
+# if [ $# -ne 3 ]; then
+#     echo "Usage: $0 month day year" >&2
+#     echo "Typical input formats are August 3 1962 and 8 3 1962" >&2
+#     exit 1
+# fi
 
-# 날짜를 표준화하고 리턴값을 저장해 오류를 확인하자.
+# # 날짜를 표준화하고 리턴값을 저장해 오류를 확인하자.
 
-newdate="$($normdate "$@")" # (#3)
+# newdate="$($normdate "$@")" # (#3)
 
-if [ $? -eq 1 ]; then
-    exit 1      # normdate에서 이미 보고한 오류 조건
-fi
+# if [ $? -eq 1 ]; then
+#     exit 1      # normdate에서 이미 보고한 오류 조건
+# fi
 
-# 첫 번째 단어 = 월, 두 번째 단어 = 일, 세 번째 단어 =연도로
-#   정규화된 날짜 형식을 분할한다.
-
-
-month="$(echo $newdate | cut -d' ' -f1)"
-day="$(echo $newdate | cut -d' ' -f2)"
-year="$(echo $newdate | cut -d' ' -f3)"
-
-# 이제 날짜가 정규화됐으므로,
-#   날짜값이 적합하고 유효한지 확인해보자(예를 들면, 1월 36일은 유효하지 않다).
+# # 첫 번째 단어 = 월, 두 번째 단어 = 일, 세 번째 단어 =연도로
+# #   정규화된 날짜 형식을 분할한다.
 
 
-if ! exceedDayInMonth $month "$2"; then
-    if [ "$month" = "Feb" -a "$2" -eq "29" ] ; then
-        if ! isLeapYear $3 ; then
-            echo "$0: $3 is not a leap year, so Feb doesn't have 29 days." >&2 # (#4)
-            exit 1
-        fi
-    else
-    echo "$0: bad day value: $month doesn't have $2 days." >&2
-    exit 1
-    fi
-fi
+# month="$(echo $newdate | cut -d' ' -f1)"
+# day="$(echo $newdate | cut -d' ' -f2)"
+# year="$(echo $newdate | cut -d' ' -f3)"
 
-echo "Valid date: $newdate"
+# # 이제 날짜가 정규화됐으므로,
+# #   날짜값이 적합하고 유효한지 확인해보자(예를 들면, 1월 36일은 유효하지 않다).
 
-exit 0
+
+# if ! exceedDayInMonth $month "$2"; then
+#     if [ "$month" = "Feb" -a "$2" -eq "29" ] ; then
+#         if ! isLeapYear $3 ; then
+#             echo "$0: $3 is not a leap year, so Feb doesn't have 29 days." >&2 # (#4)
+#             exit 1
+#         fi
+#     else
+#     echo "$0: bad day value: $month doesn't have $2 days." >&2
+#     exit 1
+#     fi
+# fi
+
+# echo "Valid date: $newdate"
+
+# exit 0

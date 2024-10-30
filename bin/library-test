@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# 라이브러리 테스트 스크립트
+
+. library.sh
+. valid-date # 의존성을 따로 줄 수밖에 없었음 이 부분에 대해서는 다시 다룰 예정
+initializeANSI # Let's set up all those ANSI escape sequences.
+
+
+# validint 기능 테스트
+echon "First off, do you echo in your path? (1=yes, 2=no)"
+read answer
+while ! validint $answer 1 2 ; do
+    echon "${boldon}Try again${boldoff}. Do you have echo "
+    echon "in your path? (1=yes, 2=no) "
+    read answer
+done
+
+
+# 경로의 내용을 확인하는 명령이 작동되는가?
+if ! checkForCmdInPath "echo" ; then
+    echo "Nope, can't find the echo command."
+else
+    echo "The echo command is in the PATH."
+fi
+
+echo ""
+echon "Enter a year you think might be a leap year: "
+read year
+
+
+# 최솟값 및 최댓값이 validint를 사용해
+#   지정된 연도가 1에서 9999 사이이니 테스트한다.
+while ! validint $year 1 9999 ; do
+    echon "Please enter a year in the ${boldon}correct${boldoff} format: "
+    read year
+done
+
+
+# 이제 실제로 윤년인지 테스트해본다.
+if isLeapYear $year ; then
+    echo "${green}You're right! $year is a leap year.${reset}"
+else
+    echo "${redf}Nope, that's not a leap year.${reset}"
+fi
+
+
+exit 0
