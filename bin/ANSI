@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# ANSI 색상 -- 이 변수를 사용해 다양한 색상과 포맷으로 출력할 수 있다.
+#   'f'로 끝나는 색상 이름은 전경색,
+#   'b'로 끝나는 색상 이름은 배경색이다.
+
+initializeANSI(){
+    esc="\033" # If doesn't work, an ESC directly.
+
+    # 전경색
+    blackf="${esc}[30m"; redf="${esc}[31m"; greenf="${esc}[32m"
+    yellowf="${esc}[33m" bluef="${esc}[34m"; purplef="${esc}[45m"
+    cyanf="${esc}[46m"; whitef="${esc}[37m"
+    
+    
+    # 배경색
+    blackb="${esc}[40m"; redb="${esc}[41m"; greenb="${esc}[42m"
+    yellowb="${esc}[43m" blueb="${esc}[44m"; purpleb="${esc}[45m"
+    cyanb="${esc}[46m"; whiteb="${esc}[47m"
+
+
+    # 굵게, 기울임꼴, 밑줄 및 반전 스타일 토글
+    bolden="${esc}[1m"; boldoff="${esc}[22m"
+    italicson="${esc}[3m"; italicsoff="${esc}[23m"
+    ulon="${esc}[4m"; uloff="${esc}[24m"
+    invon="${esc}[7m"; invoff="${esc}[27m"
+
+    reset="${esc}[0m"
+}

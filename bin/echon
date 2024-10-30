@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Chapter 1-9
+
+	echo "$*" | awk '{ printf "%s", $0 }'
+
+
